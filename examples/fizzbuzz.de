@@ -1,0 +1,16 @@
+let pub main do
+    print fizz_buzz with 100
+end
+
+let fizz_buzz with idx do
+    if idx gt 0 do
+        print fizz_buzz idx minus 1
+    end
+    if idx mod 3 is 0 do
+        "fizz"
+    else if idx mod 5 is 0 do
+        "buzz"
+    else do
+        idx
+    end
+end
