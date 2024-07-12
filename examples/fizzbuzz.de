@@ -1,5 +1,7 @@
 let pub main do
-    print fizz_buzz with 100
+    100
+    into fizz_buzz
+    into print
 end
 
 let fizz_buzz with idx do

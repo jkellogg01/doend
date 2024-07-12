@@ -6,11 +6,9 @@ let fib with x do
     if x is 0 or x is 1 do
         1
     else do
-        do
-            fib with x minus 2
-        end plus do
-            fib with x minus 1
-        end
+        let a be fib with x minus 2
+        let b be fib with x minus 1
+        a plus b
     end
 end
         
