@@ -7,14 +7,18 @@ function_decl = "let" IDENT arguments block ;
 
 variable_decl = "let" IDENT [ "be" expression ] ;
 
+statement = print_stmt
+          | expression ;
+
+print_stmt = "print" expression ;
+
 expression = if_expr
-           | print_stmt
            | block
            | assignment ;
 
 if_expr = "if" expression block ;
 
-block = "do" { assignment } ( "end" | "else" assignment ) ;
+block = "do" { assignment } ( "end" | "else" expression ) ;
 
 assignment = IDENT "be" assignment 
            | logic_or ;
@@ -29,13 +33,13 @@ factor = unary { ( "pl" | "mn" ) unary } ;
 unary = ( "not" | "mn" ) unary | call ;
 call = primary { "into" call } 
      | IDENT arguments ;
+
 primary = IDENT 
         | STRING 
         | NUMBER 
         | "true" 
         | "false" 
         | "nil" 
-        | block ;
 
 parameters = "for" ( "nil" | IDENT { "," IDENT } "end" ) ; 
 arguments = "for" ( "nil" | expression { "," expression } "end" ) ;
