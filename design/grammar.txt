@@ -1,7 +1,0 @@
-expression = equality;
-equality = comparison { "is" [ "not" ] comparison } ;
-comparison = term { ( "gt'" | "lt" | "gte" | "lte" ) term } ;
-term = factor { ( "tm" | "dv" ) term } ;
-factor = unary { ( "pl" | "mn" ) unary } ;
-unary = ( "not" | "neg" ) unary | primary ;
-primary = IDENT | STRING | NUMBER | "true" | "false" | "nil" | expression ;

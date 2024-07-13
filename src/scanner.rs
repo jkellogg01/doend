@@ -1,11 +1,18 @@
 #[derive(Debug)]
 pub enum Token {
-    // bad times
+    // meta tokens
     Illegal(String),
+    Eof,
 
     // identifiers & literals
     Ident(String),
-    Literal(String),
+    String(String),
+    Number(String),
+    
+    // value keywords
+    True,
+    False,
+    Nil,
 
     // normal keywords
     Let,
@@ -23,24 +30,20 @@ pub enum Token {
 pub struct Scanner {
     start: usize,
     current: usize,
-    data: Vec<char>,
+    data: Box<[char]>,
 }
 
-impl Iterator for Scanner {
-    type Item = Token;
-
-    fn next(&mut self) -> Option<Token> {
+impl Scanner {
+    pub fn next_token(&mut self) -> Token {
         self.skip_whitespace();
         self.start = self.current;
 
         match self.advance() {
-            '\0' => None,
-            _ => Some(Token::Illegal(String::from("unrecognized character")))
+            '\0' => Token::Eof,
+            _ => Token::Illegal(String::from("unrecognized character"))
         }
     }
-}
 
-impl Scanner {
     fn advance(&mut self) -> char {
         let val = self.peek();
         self.current += 1;
@@ -59,5 +62,12 @@ impl Scanner {
         while self.peek().is_ascii_whitespace() {
             self.advance();
         }
+    }
+}
+
+impl Iterator for Scanner {
+    type Item = Token;
+
+    fn next(&mut self) -> Option<Token> {
     }
 }
